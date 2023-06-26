@@ -1,62 +1,118 @@
 package miniDepoProjesi;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Service extends Urun {
 
-    public Service(String id, String urunIsmi, String uretici, double miktar, String birim, String raf) {
-        super(id, urunIsmi, uretici, miktar, birim, raf);
-    }
-
-    public static Scanner input = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);
+    HashMap<String, Urun> urunHm = new HashMap<>();
 
     public Service() {
+
     }
 
-    public void urunTanimla(){
-        System.out.println("Urun ismini giriniz: ");
-        String urunIsmi = input.nextLine();
 
-        System.out.println("Uretici bilgisi giriniz: ");
-        String uretici =input.nextLine();
+    public void urunTanimla() {
 
-        System.out.println("Urun miktarini giriniz: ");
-        double miktar =input.nextDouble();
+        UUID uuid = UUID.randomUUID();
+        String id = uuid.toString().substring(0, 5);
 
-        System.out.println("Urun birimi giriniz: ");
+
+        System.out.println("lutfen Urun ismini giriniz");
+
+        String urunIsim = null;
+        try {
+            urunIsim = input.nextLine();
+        } catch (InputMismatchException e) {
+            System.err.println("Hatali giris. Lutfen uygun deger giriniz");
+        }
+
+        System.out.println("lutfen Uretici ismini giriniz");
+        String uretici = input.nextLine();
+        System.out.println("lutfen Urunun birimini giriniz");
         String birim = input.nextLine();
+        double miktar = 0;
+        String raf = "-";
 
-        System.out.println("Urunun rafini giriniz: ");
-        String raf =input.nextLine();
+        Urun urun = new Urun(urunIsim, uretici, miktar, birim, raf);
 
+
+        urunHm.put(id, urun);
+
+        System.out.println(urunHm);
     }
+
 
     public void urunListele() {
-        //MAP ile yapacagiz ama nasil ? :D
-    }
-
-    public void urunGir(){
-
-    }
-
-    public void urunuRafaKoy(){
-        System.out.println("Lutfen rafa konulacak urunun id giriniz");
-        String id= input.nextLine();
-
-        System.out.println("Lutfen raf numarasini giriniz: ");
-        String raf =input.nextLine();
-        System.out.println("id : "+ id+"raf: "+raf);
-
-        //get(id).set(raf) ??
+        System.out.println("urun listelendi");
     }
 
 
-    public void urunCikisiYap(){
-        System.out.println("Sectiginiz urunun id giriniz: ");
-        String id= input.nextLine();
+    public void urunGir() {
 
-        //If else yapalim
+        System.out.println("Lutfen Miktarini girmek istediginiz urunun ID'sini giriniz");
+        String id = input.nextLine().trim();
 
+        if (urunHm.containsKey(id)) {
+            System.out.println("Lutfen " + id + " id numarali urun icin miktar giriniz..");
+
+            double miktar = input.nextDouble(); //trycatch uygulanacak
+
+
+            for (Map.Entry<String, Urun> w : urunHm.entrySet()) {
+
+                Urun urun = w.getValue();
+
+                double mevcutMiktar = urun.getMiktar();
+                double yeniMiktar = mevcutMiktar+miktar;
+
+                urun.setMiktar(yeniMiktar);
+
+
+
+
+            }
+
+
+        }
+
+
+    }
+
+
+    public void urunuRafaKoy() {
+
+    }
+
+
+    public void urunCikisiYap() {
+
+    }
+
+    public int intHataliGiris() {
+        boolean falseGir = false;
+        int sec = 0;
+        do {
+
+            try {
+                sec = input.nextInt();
+                input.nextLine();       //dummyCod
+                falseGir = true;
+            } catch (InputMismatchException e) {
+                System.out.println("yanlis deger girdiniz");
+                System.out.println("lutfen Tekrar giris yapiniz");
+                input.nextLine();       //Girdi bufferini temizleme
+            }
+
+            if (sec < 0) {
+                System.out.println("Negatif deger girdiniz!!!");
+                falseGir = true;
+            }
+
+
+        } while (!falseGir);
+
+        return sec;
 
     }
 
