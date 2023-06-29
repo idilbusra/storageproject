@@ -5,20 +5,33 @@ import java.util.Scanner;
 
 public class Runner {
 
-    static{
-        System.out.println("**********************************\n\t\tDEPOYA HOSGELDINIZ\t\t\t\n**********************************");
+    static {
+        Service service =new Service();
+        service.mesage("DEPOYA HOSGELDINIZ");
+
     }
 
     public static void anaMenu() {
 
-        System.out.println("\n Lutfen yapmak istediginiz islemi secin\n" +
-                "\t1. Urun Tanimla\n \t2. Urun Listele \n\t3. Urun Giris" +
-                "\n\t4. Urun Rafa Koy\n\t5. Urun Cikisi Yap\n\t6. Cikis  ");
+        System.out.printf("\n \u001B[36mLutfen yapmak istediginiz islemi secin\u001B[0m\n" +
+                        "\t\u001B[32m%-2s\u001B[0m \u001B[35m%-18s\u001B[0m\n" +
+                        "\t\u001B[32m%-2s\u001B[0m \u001B[35m%-18s\u001B[0m\n" +
+                        "\t\u001B[32m%-2s\u001B[0m \u001B[35m%-18s\u001B[0m\n" +
+                        "\t\u001B[32m%-2s\u001B[0m \u001B[35m%-18s\u001B[0m\n" +
+                        "\t\u001B[32m%-2s\u001B[0m \u001B[35m%-18s\u001B[0m\n" +
+                        "\t\u001B[32m%-2s\u001B[0m \u001B[35m%-18s\u001B[0m\n",
+                "1.", "Urun Tanimla",
+                "2.", "Urun Listele",
+                "3.", "Urun Giris",
+                "4.", "Urun Rafa Koy",
+                "5.", "Urun Cikisi Yap",
+                "6.", "Cikis");
+
 
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         Service service = new Service();
 
@@ -47,8 +60,7 @@ public class Runner {
                     service.urunCikisiYap();
                     break;
                 case 6:
-                    //cikis
-                    a = false;
+                    a =service.cikis();
                     break;
                 default:
                     System.out.println("Uygun Bir deger giriniz..");
